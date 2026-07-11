@@ -1,0 +1,109 @@
+.footer {
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border);
+  padding: 3rem 2rem 1.5rem;
+  color: var(--text-secondary);
+  transition: var(--transition-smooth);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr;
+  gap: 3rem;
+  margin-bottom: 2.5rem;
+}
+
+.footer-section h4 {
+  color: var(--text-primary);
+  margin-bottom: 1.2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.brand-section .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 800;
+  font-size: 1.6rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.brand-section .logo-icon {
+  color: var(--accent);
+  transform: rotate(45deg);
+  display: inline-block;
+}
+
+.brand-tagline {
+  line-height: 1.6;
+  max-width: 350px;
+  font-size: 0.95rem;
+}
+
+.links-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.links-section ul li {
+  margin-bottom: 0.8rem;
+}
+
+.links-section ul li a {
+  text-decoration: none;
+  color: var(--text-secondary);
+  transition: var(--transition-smooth);
+  font-size: 0.95rem;
+}
+
+.links-section ul li a:hover {
+  color: var(--text-primary);
+  padding-left: 4px;
+}
+
+.contact-section p {
+  margin-bottom: 0.8rem;
+  font-size: 0.95rem;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+
+.social-icon {
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: var(--transition-smooth);
+}
+
+.social-icon:hover {
+  color: var(--text-primary);
+  transform: translateY(-2px);
+}
+
+.footer-bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .footer {
+    padding: 2rem 1rem 1rem;
+  }
+}

@@ -1,0 +1,96 @@
+<div class="bookings-page">
+  <div class="bookings-container">
+    @if (isCheckoutSuccess()) {
+      <!-- Success Message Section -->
+      <div class="success-screen">
+        <span class="success-icon">🎉</span>
+        <h2>Booking Confirmed!</h2>
+        <p>Thank you for choosing Travgo. A detailed digital itinerary and confirmation ticket have been dispatched to your email address.</p>
+        <button class="btn btn-primary" (click)="restartJourney()">Plan Another Trip</button>
+      </div>
+    } @else if (bookedTours().length === 0) {
+      <!-- Empty Bookings State -->
+      <div class="empty-bookings">
+        <span class="empty-icon">🎒</span>
+        <h2>Your Travel Bag is Empty</h2>
+        <p>You haven't reserved any travel packages yet. Head over to our catalog to select your next dream destination.</p>
+        <a routerLink="/tours" class="btn btn-primary">Find Destinations</a>
+      </div>
+    } @else {
+      <!-- Active Bookings & Checkout Layout -->
+      <div class="bookings-layout">
+        <!-- Reserved Items -->
+        <main class="bookings-list">
+          <h2>Active Reservations ({{ bookedTours().length }})</h2>
+          
+          <div class="cards-stack">
+            @for (tour of bookedTours(); track tour.id) {
+              <div class="booking-item-card">
+                <img [src]="tour.imageUrl" [alt]="tour.title" class="item-img" loading="lazy">
+                
+                <div class="item-details">
+                  <div class="item-header">
+                    <h3>{{ tour.title }}</h3>
+                    <button class="btn-remove" (click)="cancelBooking(tour.id)" aria-label="Cancel booking">✕ Remove</button>
+                  </div>
+                  <p class="item-destination">📍 {{ tour.destination }}</p>
+                  <p class="item-duration">⏱ {{ tour.duration }}</p>
+                  
+                  <div class="item-footer">
+                    <span class="item-price">${{ tour.price }}</span>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </main>
+
+        <!-- Summary & Contact Card -->
+        <aside class="checkout-card">
+          <h3>Billing & Checkout</h3>
+          
+          <div class="summary-line">
+            <span>Subtotal</span>
+            <span>${{ totalBookingPrice() }}</span>
+          </div>
+          <div class="summary-line highlight">
+            <span>Total Cost</span>
+            <span>${{ totalBookingPrice() }}</span>
+          </div>
+
+          <form (submit)="executeCheckout($event)" class="checkout-form">
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input 
+                id="fullName" 
+                type="text" 
+                placeholder="John Doe" 
+                required 
+                [value]="travelerName()"
+                (input)="onNameInput($event)"
+                class="form-input"
+              >
+            </div>
+            
+            <div class="form-group">
+              <label for="emailAddr">Email Address</label>
+              <input 
+                id="emailAddr" 
+                type="email" 
+                placeholder="john@example.com" 
+                required 
+                [value]="travelerEmail()"
+                (input)="onEmailInput($event)"
+                class="form-input"
+              >
+            </div>
+
+            <button type="submit" class="btn btn-checkout">Secure Checkout</button>
+          </form>
+          
+          <p class="checkout-hint">🛡 Your billing information is processed securely. Free cancellations up to 7 days before departure.</p>
+        </aside>
+      </div>
+    }
+  </div>
+</div>

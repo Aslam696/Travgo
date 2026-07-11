@@ -1,0 +1,304 @@
+.bookings-page {
+  /* Clear the fixed header (70px) + breathing room */
+  padding: 6rem 2rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 80dvh;
+}
+
+.bookings-container {
+  width: 100%;
+}
+
+/* Success & Empty Screens */
+.success-screen,
+.empty-bookings {
+  text-align: center;
+  max-width: 550px;
+  margin: 4rem auto;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  padding: 4rem 3rem;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.success-icon,
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.success-screen h2,
+.empty-bookings h2 {
+  color: var(--text-primary);
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 0.8rem;
+  letter-spacing: -0.03rem;
+}
+
+.success-screen p,
+.empty-bookings p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+/* Layout */
+.bookings-layout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 3rem;
+}
+
+.bookings-list h2 {
+  color: var(--text-primary);
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  letter-spacing: -0.03rem;
+}
+
+.cards-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Booking Item Card */
+.booking-item-card {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+}
+
+.booking-item-card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.item-img {
+  width: 100%;
+  height: 100%;
+  min-height: 120px;
+  object-fit: cover;
+}
+
+.item-details {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+  gap: 1rem;
+}
+
+.item-header h3 {
+  color: var(--text-primary);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.btn-remove {
+  background: none;
+  border: none;
+  color: hsl(0, 85%, 65%);
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  transition: var(--transition-smooth);
+  white-space: nowrap;
+}
+
+.btn-remove:hover {
+  background: rgba(255, 0, 0, 0.1);
+}
+
+.item-destination {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.3rem;
+}
+
+.item-duration {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.item-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.item-price {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+/* Checkout Sidebar Card */
+.checkout-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  padding: 2rem;
+  border-radius: 20px;
+  height: fit-content;
+  position: sticky;
+  top: 100px;
+}
+
+.checkout-card h3 {
+  color: var(--text-primary);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.8rem;
+}
+
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.summary-line.highlight {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  transition: var(--transition-smooth);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(0, 160, 255, 0.2);
+}
+
+.btn-checkout {
+  background: var(--accent);
+  color: var(--bg-dark);
+  font-size: 1rem;
+  width: 100%;
+  padding: 0.85rem;
+  box-shadow: 0 4px 12px rgba(255, 110, 0, 0.25);
+  margin-top: 0.5rem;
+}
+
+.btn-checkout:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(255, 110, 0, 0.35);
+}
+
+.checkout-hint {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--text-secondary);
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 900px) {
+  .bookings-layout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .checkout-card {
+    position: relative;
+    top: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .bookings-page {
+    padding: 5rem 1rem 3rem;
+  }
+  .booking-item-card {
+    grid-template-columns: 1fr;
+  }
+  .item-img {
+    height: 160px;
+    width: 100%;
+  }
+  .item-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  .success-screen,
+  .empty-bookings {
+    padding: 2.5rem 1.2rem;
+    margin: 2rem auto;
+  }
+  .success-screen h2,
+  .empty-bookings h2 {
+    font-size: 1.4rem;
+  }
+  .checkout-card {
+    padding: 1.5rem 1rem;
+  }
+  .summary-line.highlight {
+    font-size: 1.1rem;
+  }
+  .bookings-list h2 {
+    font-size: 1.4rem;
+  }
+}

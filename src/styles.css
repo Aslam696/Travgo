@@ -1,1 +1,91 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* HSL Color Palette - Vibrant Dark Theme */
+  --primary: hsl(200, 95%, 45%);
+  /* Bright adventure blue */
+  --primary-hover: hsl(200, 95%, 40%);
+  --accent: hsl(28, 100%, 55%);
+  /* Sunset orange */
+  --accent-hover: hsl(28, 100%, 50%);
+
+  --bg-dark: hsl(222, 25%, 8%);
+  /* Rich deep background */
+  --bg-surface: hsl(222, 20%, 14%);
+  /* Sleek card surface background */
+  --text-primary: hsl(0, 0%, 98%);
+  /* High contrast off-white */
+  --text-secondary: hsl(220, 12%, 75%);
+  /* Muted silver text */
+  --border: hsla(0, 0%, 100%, 0.07);
+  /* Thin translucent borders */
+
+  /* Glassmorphism settings */
+  --glass-bg: hsla(222, 25%, 8%, 0.7);
+  --glass-border: hsla(0, 0%, 100%, 0.05);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+  --glass-blur: blur(12px);
+
+  /* Custom curves */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base Resets */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Fluid base font so everything scales proportionally */
+  font-size: clamp(14px, 1.5vw, 16px);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100dvh;
+  background-color: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  /* Prevent horizontal overflow on mobile */
+  overflow-x: hidden;
+}
+
+/* All images should be fluid by default */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Anchor targets clear the fixed header */
+[id] {
+  scroll-margin-top: 80px;
+}
+
+@media (max-width: 768px) {
+  /* Hide scrollbar on touch devices to avoid double-scrollbar */
+  ::-webkit-scrollbar { display: none; }
+  body { scrollbar-width: none; }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-surface);
+  border-radius: 5px;
+  border: 2px solid var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(222, 20%, 25%);
+}

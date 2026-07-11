@@ -1,0 +1,196 @@
+<div class="tours-page">
+
+  <!-- ═══════════════════════════════════════ -->
+  <!--  IMMERSIVE FULL-BLEED HERO             -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="tours-hero">
+    <img src="/vintage-desert.jpg" alt="Explore Destinations" class="tours-hero-img" loading="eager">
+    <div class="tours-hero-gradient"></div>
+
+    <!-- Decorative corner accent lines -->
+    <div class="hero-corner hero-corner--tl"></div>
+    <div class="hero-corner hero-corner--br"></div>
+
+    <div class="tours-hero-body">
+      <span class="hero-overline">✦ Handcrafted Journeys ✦</span>
+      <h1 class="tours-hero-h1">Where Will You<br><em>Wander Next?</em></h1>
+      <p class="tours-hero-desc">
+        Curated escapes across six continents — from sun-baked canyon roads
+        to mist-wrapped alpine peaks. Every journey, perfectly designed for you.
+      </p>
+
+      <!-- Quick stats -->
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="stat-val">6+</span>
+          <span class="stat-label">Countries</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-val">{{ filteredTours().length }}</span>
+          <span class="stat-label">Packages</span>
+        </div>
+        <div class="hero-stat-divider"></div>
+        <div class="hero-stat">
+          <span class="stat-val">4.8★</span>
+          <span class="stat-label">Avg. Rating</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="hero-scroll-hint">
+      <span>Explore</span>
+      <div class="scroll-arrow">↓</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!--  CATEGORY PILLS STRIP (above filters)  -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="category-strip">
+    <div class="category-strip-inner">
+      <button
+        class="cat-pill"
+        [class.active]="activeFilters().tag === ''"
+        (click)="selectTag('')">
+        🌍 All
+      </button>
+      @for (tag of availableTags(); track tag) {
+        <button
+          class="cat-pill"
+          [class.active]="activeFilters().tag === tag"
+          (click)="selectTag(tag)">
+          {{ tag }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!--  MAIN CONTENT: FILTER + CARDS          -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="tours-body">
+
+    <!-- ─── LEFT FILTER PANEL ─── -->
+    <aside class="filter-panel">
+      <div class="filter-panel-header">
+        <div class="filter-panel-title">
+          <span class="filter-icon">⚙</span>
+          <span>Refine</span>
+        </div>
+        <button class="btn-clear-all" (click)="resetFilters()">Clear All</button>
+      </div>
+
+      <!-- Search -->
+      <div class="fgroup">
+        <label class="flabel">🔍 Destination or keyword</label>
+        <div class="search-wrap">
+          <input
+            id="search"
+            type="text"
+            placeholder="e.g. Kyoto, Beach, Alps…"
+            [value]="activeFilters().searchQuery"
+            (input)="onSearchChange($event)"
+            class="filter-input"
+          >
+        </div>
+      </div>
+
+      <!-- Budget Slider -->
+      <div class="fgroup">
+        <div class="flabel-row">
+          <label class="flabel">💰 Max Budget</label>
+          <span class="budget-badge">${{ activeFilters().maxPrice }}</span>
+        </div>
+        <input
+          id="priceRange"
+          type="range"
+          min="500"
+          max="4000"
+          step="100"
+          [value]="activeFilters().maxPrice"
+          (input)="onPriceChange($event)"
+          class="filter-slider"
+        >
+        <div class="slider-bounds">
+          <span>$500</span>
+          <span>$4,000</span>
+        </div>
+      </div>
+
+      <!-- Promo box -->
+      <div class="filter-promo">
+        <span class="promo-icon">🏷</span>
+        <p>Book any package today and get <strong>free travel insurance</strong> included.</p>
+      </div>
+    </aside>
+
+    <!-- ─── RESULTS GRID ─── -->
+    <main class="results-main">
+
+      <!-- Results header bar -->
+      <div class="results-bar">
+        <div class="results-bar-left">
+          <h2 class="results-heading">Available Packages</h2>
+          <span class="results-pill">{{ filteredTours().length }} found</span>
+        </div>
+      </div>
+
+      <!-- Tour cards grid -->
+      <div class="cards-grid">
+        @for (tour of filteredTours(); track tour.id; let i = $index) {
+          <div class="tour-card">
+            <!-- Image with hover zoom + tag overlay -->
+            <div class="card-img-wrap">
+              <img [src]="tour.imageUrl" [alt]="tour.title" class="card-img" loading="lazy">
+              <div class="card-img-overlay"></div>
+              <span class="card-tag">{{ tour.tags[0] }}</span>
+              <div class="card-rating-badge">★ {{ tour.rating }}</div>
+            </div>
+
+            <!-- Body -->
+            <div class="card-body">
+              <p class="card-destination">📍 {{ tour.destination }}</p>
+              <h3 class="card-title">{{ tour.title }}</h3>
+              <p class="card-desc">{{ tour.description }}</p>
+
+              <!-- Meta chips -->
+              <div class="card-chips">
+                <span class="chip chip--clock">⏱ {{ tour.duration }}</span>
+                @for (t of tour.tags; track t) {
+                  <span class="chip">{{ t }}</span>
+                }
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="card-footer">
+              <div class="card-price-block">
+                <span class="price-from">From</span>
+                <span class="price-amount">${{ tour.price }}</span>
+                <span class="price-per">/ person</span>
+              </div>
+
+              @if (isBooked(tour.id)) {
+                <button class="btn-booked" disabled>✓ Reserved</button>
+              } @else {
+                <button class="btn-book" (click)="bookTour(tour.id)">
+                  Book Now →
+                </button>
+              }
+            </div>
+          </div>
+        } @empty {
+          <div class="no-results">
+            <span class="no-results-icon">🔍</span>
+            <h3>No Adventures Found</h3>
+            <p>Try adjusting your keywords or raising your budget.</p>
+            <button class="btn-book" (click)="resetFilters()">Reset Filters</button>
+          </div>
+        }
+      </div>
+
+    </main>
+  </div>
+</div>

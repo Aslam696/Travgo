@@ -1,0 +1,251 @@
+<div class="home-page">
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!--  SECTION 1 — FULL-VIEWPORT VIDEO HERO             -->
+  <!--  Exact Black Tomato style: centered headline,     -->
+  <!--  two CTA buttons (outline + solid black)          -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section class="hero-section">
+    <video class="hero-video" autoplay muted loop playsinline
+      poster="https://images.unsplash.com/photo-1593693397690-362cb9666fc2?q=80&w=1200&auto=format&fit=crop">
+      <source src="https://cdn.pixabay.com/video/2024/04/20/208687_large.mp4" type="video/mp4">
+    </video>
+
+    <!-- Subtle dark veil — not too heavy so the video breathes -->
+    <div class="hero-veil"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Travgo Tours & Travels</p>
+      <h1 class="hero-headline">THE LUXURY<br>TRAVEL EXPERTS</h1>
+      <p class="hero-sub">TAILOR-MADE TRIPS, AWARD WINNING SERVICE. EST. 2019.</p>
+      <div class="hero-actions">
+        <a routerLink="/tours" class="btn-outline-white">EXPLORE OUR TRIPS</a>
+        <a routerLink="/bookings" class="btn-solid-black">PLAN MY TRIP</a>
+      </div>
+    </div>
+
+    <!-- Animated scroll hint at bottom-center -->
+    <div class="scroll-cue">
+      <span class="scroll-cue-line"></span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!--  SECTION 2 — "EVERY JOURNEY STARTS WITH A FEELING"-->
+  <!--  Light background editorial text + CTA            -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section class="editorial-section">
+    <div class="editorial-inner">
+      <h2 class="editorial-heading">EVERY JOURNEY STARTS WITH A FEELING</h2>
+      <div class="editorial-body">
+        <p>
+          The world is vast, full of wonders. But information engulfs us. See this, do that, don't miss this.
+          It seems the more choice there is, the more overwhelmed we feel. What's more, you're never asked
+          <em>how you want to feel.</em>
+        </p>
+        <p>
+          That's not us. Travgo is a tailor-made luxury travel company that designs fully personalised
+          itineraries — not templates, not off-the-shelf tours. Whether you're a couple seeking adventure,
+          a multi-generational family exploring together, or a solo traveller chasing something extraordinary,
+          we craft every detail around you.
+        </p>
+        <p>
+          For over 5 years, we've been trusted to deliver tailor-made journeys across 100+ destinations —
+          and recognised as one of the region's leading luxury travel planners.
+        </p>
+        <p class="editorial-closer">So let's begin. Let's do something remarkable.</p>
+      </div>
+      <a routerLink="/bookings" class="btn-solid-dark">GET IN TOUCH</a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!--  SECTION 3 — TRUST STRIP (4-column quotes)        -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  @defer (on viewport) {
+  <section class="trust-strip">
+    <div class="trust-inner">
+      <div class="trust-quote">
+        <span class="trust-mark">"</span>
+        <p>TRAVGO WILL CHANGE THE WAY YOU TRAVEL</p>
+      </div>
+      <div class="trust-quote">
+        <span class="trust-mark">"</span>
+        <p>GLAMPING, HIKING, SURFING, GOURMET FOOD. NOT SURE HOW MY TRIP COULD HAVE BEEN ANY BETTER</p>
+      </div>
+      <div class="trust-quote">
+        <span class="trust-mark">"</span>
+        <p>A DREAM COME TRUE — FROM SMALL RIADS TO A MOUNTAIN FORTRESS AND A DESERT OASIS</p>
+      </div>
+      <div class="trust-quote">
+        <span class="trust-mark">"</span>
+        <p>HIGHLY RECOMMEND TRAVGO'S HELP IN PLANNING AN ADVENTUROUS FAMILY-FRIENDLY HOLIDAY</p>
+      </div>
+    </div>
+    <div class="trust-rating">★★★★★ &nbsp; Trustpilot</div>
+  </section>
+  } @placeholder {
+  <div class="trust-placeholder"></div>
+  }
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!--  SECTION 4 — "START YOUR JOURNEY" TRAVELLER GRID  -->
+  <!--  5 photo panels with label overlays               -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section class="journey-section">
+    <div class="journey-header">
+      <h2 class="journey-heading">START YOUR JOURNEY</h2>
+      <div class="journey-tabs">
+        <span class="journey-tab active">BY TRAVELLER</span>
+        <span class="journey-tab">MOST POPULAR</span>
+        <span class="journey-tab">BY MONTH</span>
+        <span class="journey-tab">IN THE SPOTLIGHT</span>
+      </div>
+    </div>
+
+    <div class="traveller-grid">
+      <div class="traveller-card">
+        <img src="https://images.unsplash.com/photo-1609220136736-443140cffec6?q=80&w=600&auto=format&fit=crop"
+          alt="Family travel" loading="lazy">
+        <div class="traveller-overlay"></div>
+        <span class="traveller-label">FAMILY</span>
+      </div>
+      <div class="traveller-card">
+        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=600&auto=format&fit=crop"
+          alt="Couples travel" loading="lazy">
+        <div class="traveller-overlay"></div>
+        <span class="traveller-label">COUPLES</span>
+      </div>
+      <div class="traveller-card">
+        <img src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?q=80&w=600&auto=format&fit=crop"
+          alt="Groups travel" loading="lazy">
+        <div class="traveller-overlay"></div>
+        <span class="traveller-label">GROUPS</span>
+      </div>
+      <div class="traveller-card">
+        <img src="https://images.unsplash.com/photo-1499678329028-101435549a4e?q=80&w=600&auto=format&fit=crop"
+          alt="Honeymoon travel" loading="lazy">
+        <div class="traveller-overlay"></div>
+        <span class="traveller-label">HONEYMOON</span>
+      </div>
+      <div class="traveller-card">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=600&auto=format&fit=crop"
+          alt="Solo travel" loading="lazy">
+        <div class="traveller-overlay"></div>
+        <span class="traveller-label">SOLO</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!--  SECTION 5 — "EXPLORE OUR TRIPS" DARK CAROUSEL    -->
+  <!--  Left label panel + scrollable photo cards        -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section class="trips-section">
+    <div class="trips-inner">
+      <div class="trips-label">
+        <div class="trips-deco"></div>
+        <h2 class="trips-heading">EXPLORE OUR TRIPS</h2>
+        <p class="trips-sub"><em>Remarkable experiences to inspire the mind</em></p>
+      </div>
+
+      <div class="trips-scroll">
+        @for (tour of featuredTours(); track tour.id; let first = $first) {
+        <div class="trip-card">
+          <div class="trip-card-img-wrap">
+            <img [src]="tour.imageUrl" [alt]="tour.title" class="trip-card-img" [loading]="first ? 'eager' : 'lazy'">
+            <span class="trip-nights">{{ tour.duration }}</span>
+          </div>
+          <div class="trip-card-body">
+            <p class="trip-country">{{ tour.destination }}</p>
+            <h3 class="trip-title">{{ tour.title }}</h3>
+            @if (isBooked(tour.id)) {
+            <button class="btn-trip-explore btn-trip-booked" disabled>✓ RESERVED</button>
+            } @else {
+            <button class="btn-trip-explore" (click)="bookTour(tour.id)">EXPLORE TRIP</button>
+            }
+          </div>
+        </div>
+        } @empty {
+        <p class="empty-trips">No featured trips available.</p>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!--  SECTION 6 — AWARDS TICKER STRIP (light bg)       -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  @defer (on viewport) {
+  <section class="awards-strip">
+    <div class="awards-inner">
+      <div class="award-item">
+        <p>"LUXURY TRAVEL COMPANY, TRAVGO, SPECIALISES IN THE TRIP YOU DIDN'T EVEN REALISE YOU HAD DREAMED OF"</p>
+      </div>
+      <div class="award-divider"></div>
+      <div class="award-item">
+        <p>ONE OF OUR TRAVEL EXPERTS VOTED AS A ROBB REPORT TRAVEL MASTER</p>
+      </div>
+      <div class="award-divider"></div>
+      <div class="award-item">
+        <p>TRAVEL + LEISURE WORLD'S MOST INFLUENTIAL TRAVEL SPECIALISTS 2025</p>
+      </div>
+      <div class="award-divider"></div>
+      <div class="award-item">
+        <p>AWARDED BEST CUSTOM LUXURY VACATIONS AT THE BEST OF LUXURY TRAVEL AWARDS 2025</p>
+      </div>
+    </div>
+  </section>
+  } @placeholder {
+  <div style="height: 120px;"></div>
+  }
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!--  SECTION 7 — SPLIT EDITORIAL PANEL                -->
+  <!--  "WHAT WE DO AND WHY WE DO IT"                   -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  @defer (on viewport) {
+  <section class="split-section">
+    <div class="split-text">
+      <h2 class="split-heading">WHAT WE DO<br>AND WHY WE DO IT</h2>
+      <p class="split-body">
+        Since our founding, Travgo has always been about crafting remarkable, tailor-made trips for
+        families, couples and private groups around the world. We know that real luxury isn't about
+        price — it's about perfect fit.
+      </p>
+      <a routerLink="/bookings" class="btn-solid-dark">ENQUIRE NOW</a>
+    </div>
+    <div class="split-image">
+      <img src="https://images.unsplash.com/photo-1464746133101-a2c3f88e0dd9?q=80&w=900&auto=format&fit=crop"
+        alt="Travel planning session" loading="lazy">
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!--  SECTION 8 — "PURSUIT OF FEELING" split block     -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <section class="pursuit-section">
+    <div class="pursuit-image">
+      <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=900&auto=format&fit=crop"
+        alt="Pursuit of feeling" loading="lazy">
+      <div class="pursuit-word">FEELING</div>
+    </div>
+    <div class="pursuit-text">
+      <h2 class="pursuit-heading">PURSUIT OF FEELING</h2>
+      <p class="pursuit-body">
+        The best travel experiences aren't about ticking boxes. They're about something deeper —
+        a kind of emotional high that stays with you for the rest of your life.
+      </p>
+      <p class="pursuit-body">
+        The Pursuit of Feeling — our collection of trips, features, and luxury travel experiences —
+        bottles this soulful, sensual desire, taking us back to one of our founding philosophies:
+      </p>
+      <p class="pursuit-closer"><em>It's not where you want to go; it's how you want to feel.</em></p>
+      <a routerLink="/tours" class="btn-solid-dark">FIND OUT MORE</a>
+    </div>
+  </section>
+  } @placeholder {
+  <div style="height: 500px;"></div>
+  }
+
+</div>
