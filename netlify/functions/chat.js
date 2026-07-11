@@ -155,7 +155,10 @@ ${pkg.description}
       )
       .join("\n-------------------------\n");
 
-    const chatHistory = messages.slice(-6);
+    const chatHistory = messages.slice(-6).map(msg => ({
+      role: msg.role,
+      content: msg.content
+    }));
 
     // Call Groq with low temperature (0.1) and exponential backoff retry
     const completion = await callGroqWithRetry({
