@@ -1,9 +1,13 @@
 const { createClient } = require("@supabase/supabase-js");
 const Groq = require("groq-sdk");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
+const ws = require("ws");
 
 // Lazy clients helper
 let supabase = null;
 let groq = null;
+let genAI = null;
+let embedModel = null;
 
 function initClients() {
   const SUPABASE_URL = process.env.SUPABASE_URL;
@@ -20,10 +24,26 @@ function initClients() {
     throw new Error(`Missing required environment variables on Netlify: ${missing.join(", ")}`);
   }
 
-  if (!supabase) supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-  if (!groq) groq = new Groq({ apiKey: GROQ_KEY });
+  // Set up Supabase with a Node-compatible WebSocket transport
+  if (!supabase) {
+    supabase = createClient(SUPABASE_URL, SUPABASE_KEY, {
+      auth: {
+        persistSession: false
+      },
+      realtime: {
+        transport: ws
+      }
+    });
+  }
 
-  return { GEMINI_KEY };
+  if (!groq) {
+    groq = new Groq({ apiKey: GROQ_KEY });
+  }
+
+  if (!genAI) {
+    genAI = new GoogleGenerativeAI(GEMINI_KEY);
+    embedModel = genAI.getGenerativeModel({ model: "gemini-embedding-2" });
+  }
 }
 
 // Helper to call Groq with exponential backoff retry for rate limits (429)
@@ -48,33 +68,12 @@ const headers = {
   "Access-Control-Allow-Methods": "POST, OPTIONS"
 };
 
-async function getEmbedding(text, geminiKey) {
-  const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-2:embedContent?key=${geminiKey}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        content: {
-          parts: [{ text }]
-        }
-      })
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error("Gemini embedding request failed.");
+async function getEmbedding(text) {
+  const result = await embedModel.embedContent(text);
+  if (!result || !result.embedding || !result.embedding.values) {
+    throw new Error("Invalid embedding response from Gemini SDK.");
   }
-
-  const data = await response.json();
-
-  if (!data.embedding || !data.embedding.values) {
-    throw new Error("Invalid embedding response from Gemini.");
-  }
-
-  return data.embedding.values;
+  return result.embedding.values;
 }
 
 exports.handler = async (event) => {
@@ -97,7 +96,7 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { GEMINI_KEY } = initClients();
+    initClients();
     const body = JSON.parse(event.body || "{}");
 
     if (!body.messages || !Array.isArray(body.messages) || body.messages.length === 0) {
@@ -114,7 +113,7 @@ exports.handler = async (event) => {
     const userQuestion = messages[messages.length - 1].content;
 
     // Generate embedding
-    const embedding = await getEmbedding(userQuestion, GEMINI_KEY);
+    const embedding = await getEmbedding(userQuestion);
 
     // Search similar packages (raised threshold to 0.5 for anti-hallucination)
     const { data: packages, error } = await supabase.rpc("match_packages", {
