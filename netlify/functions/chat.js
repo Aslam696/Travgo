@@ -1,17 +1,30 @@
 const { createClient } = require("@supabase/supabase-js");
 const Groq = require("groq-sdk");
 
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_KEY = process.env.SUPABASE_ANON_KEY;
-const GEMINI_KEY = process.env.GEMINI_KEY;
-const GROQ_KEY = process.env.GROQ_API_KEY;
+// Lazy clients helper
+let supabase = null;
+let groq = null;
 
-if (!SUPABASE_URL || !SUPABASE_KEY || !GEMINI_KEY || !GROQ_KEY) {
-  throw new Error("Missing required environment variables.");
+function initClients() {
+  const SUPABASE_URL = process.env.SUPABASE_URL;
+  const SUPABASE_KEY = process.env.SUPABASE_ANON_KEY;
+  const GEMINI_KEY = process.env.GEMINI_KEY;
+  const GROQ_KEY = process.env.GROQ_API_KEY;
+
+  if (!SUPABASE_URL || !SUPABASE_KEY || !GEMINI_KEY || !GROQ_KEY) {
+    const missing = [];
+    if (!SUPABASE_URL) missing.push("SUPABASE_URL");
+    if (!SUPABASE_KEY) missing.push("SUPABASE_ANON_KEY");
+    if (!GEMINI_KEY) missing.push("GEMINI_KEY");
+    if (!GROQ_KEY) missing.push("GROQ_API_KEY");
+    throw new Error(`Missing required environment variables on Netlify: ${missing.join(", ")}`);
+  }
+
+  if (!supabase) supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+  if (!groq) groq = new Groq({ apiKey: GROQ_KEY });
+
+  return { GEMINI_KEY };
 }
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
-const groq = new Groq({ apiKey: GROQ_KEY });
 
 // Helper to call Groq with exponential backoff retry for rate limits (429)
 async function callGroqWithRetry(params, retries = 3, delay = 1000) {
@@ -35,9 +48,9 @@ const headers = {
   "Access-Control-Allow-Methods": "POST, OPTIONS"
 };
 
-async function getEmbedding(text) {
+async function getEmbedding(text, geminiKey) {
   const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-2:embedContent?key=${GEMINI_KEY}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-2:embedContent?key=${geminiKey}`,
     {
       method: "POST",
       headers: {
@@ -84,6 +97,7 @@ exports.handler = async (event) => {
   }
 
   try {
+    const { GEMINI_KEY } = initClients();
     const body = JSON.parse(event.body || "{}");
 
     if (!body.messages || !Array.isArray(body.messages) || body.messages.length === 0) {
@@ -100,7 +114,7 @@ exports.handler = async (event) => {
     const userQuestion = messages[messages.length - 1].content;
 
     // Generate embedding
-    const embedding = await getEmbedding(userQuestion);
+    const embedding = await getEmbedding(userQuestion, GEMINI_KEY);
 
     // Search similar packages (raised threshold to 0.5 for anti-hallucination)
     const { data: packages, error } = await supabase.rpc("match_packages", {
