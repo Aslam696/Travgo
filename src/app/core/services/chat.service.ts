@@ -10,7 +10,7 @@ const IS_BROWSER = typeof window !== 'undefined' && typeof localStorage !== 'und
 const STORAGE_KEY = 'travgo_chat_history';
 const OPEN_KEY = 'travgo_chat_open';
 const MAX_CHARS = 500;
-const TIMEOUT_MS = 15000;
+const TIMEOUT_MS = 9000; // Netlify free tier functions time out at 10s; we fail over early to WhatsApp
 
 // In local dev, Angular runs on :4200 but Netlify functions are on :8888
 // Detect and redirect automatically
